@@ -21,7 +21,6 @@ targets:
           failure: 1
           warning: 2
       command: |
-        #! /usr/bin/env bash
         set -e
 
         # Custom exit code used by Updatecli to understand
@@ -48,15 +47,17 @@ targets:
         ## Only clone the Helm chart directory that we need to sync
         git clone --depth 1 --filter=blob:none "$GIT_REPO" --sparse "$GIT_DIR"
 
-        pushd "$GIT_DIR" "$@" > /dev/null || exit 1
+        CURRENT_DIR=$PWD
+        cd "$GIT_DIR"
         git sparse-checkout set "$GIT_DIR_SUB_PATH"
-        popd "$@" > /dev/null || exit 1
+        cd "$CURRENT_DIR"
 
         BEFORE_CHECKSUM=""
 
-        pushd "$GIT_DIR" "$@" > /dev/null || exit 1
+        CURRENT_DIR=$PWD
+        cd "$GIT_DIR"
         AFTER_CHECKSUM=$(find $GIT_DIR_SUB_PATH   -type f -exec md5sum {} \;)
-        popd "$@" > /dev/null || exit 1
+        cd "$CURRENT_DIR"
 
 
         if [ -d "charts/$CHART_NAME" ]; then
