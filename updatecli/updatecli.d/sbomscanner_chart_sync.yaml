@@ -68,12 +68,12 @@ targets:
         # if we are not in dry run mode
         # DRY_RUN is an environment variable set by Updatecli
         # depending if we execute `updatecli apply` or `updatecli diff`
-        if [ "$DRY_RUN" == "false" ]; then
+        if [ "$DRY_RUN" = "false" ]; then
           cp -R "$GIT_DIR/$GIT_DIR_SUB_PATH" charts/
           AFTER_CHECKSUM=$(find charts/$CHART_NAME   -type f -exec md5sum {} \;)
         fi
 
-        if [ "$BEFORE_CHECKSUM" == "$AFTER_CHECKSUM" ]; then
+        if [ "$BEFORE_CHECKSUM" = "$AFTER_CHECKSUM" ]; then
           exit 0
         fi
 
