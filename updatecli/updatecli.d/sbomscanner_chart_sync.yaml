@@ -48,14 +48,14 @@ targets:
         git clone --depth 1 --filter=blob:none "$GIT_REPO" --sparse "$GIT_DIR"
 
         CURRENT_DIR=$PWD
-        cd "$GIT_DIR"
+        cd "$GIT_DIR" || exit 1
         git sparse-checkout set "$GIT_DIR_SUB_PATH"
         cd "$CURRENT_DIR"
 
         BEFORE_CHECKSUM=""
 
         CURRENT_DIR=$PWD
-        cd "$GIT_DIR"
+        cd "$GIT_DIR" || exit 1
         AFTER_CHECKSUM=$(find $GIT_DIR_SUB_PATH   -type f -exec md5sum {} \;)
         cd "$CURRENT_DIR"
 
