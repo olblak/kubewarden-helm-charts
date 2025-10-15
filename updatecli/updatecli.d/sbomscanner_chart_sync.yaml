@@ -102,7 +102,7 @@ scms:
       user: "{{ .github.author }}"
       email: "{{ .github.email }}"
       owner: "{{ requiredEnv .github.owner }}"
-      repository: "helm-charts"
+      repository: "kubewarden-helm-charts"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ requiredEnv .github.user }}"
       branch: "{{ .github.branch }}"
